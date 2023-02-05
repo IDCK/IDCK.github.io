@@ -4,21 +4,22 @@ body{
     font-family: "montserrat", sans-serif;
     background: url(../Image/bg.png) no-repeat;
     background-size: cover;
+    background-color: rgb(35,46,38);
 }
 .middle{
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 0%;
+    left: 30%;
     transform: translate(-50%, -50);
 }
 .middle h1{
     font-size: 100px;
     text-transform: uppercase;
     font-weight: 900;
-    color: #2c3e5036;
+    color: #07e6c836;
     background-image: url(../Image/bg-1.png);
     -webkit-background-clip: text;
-    animation: water 15s infinite;
+    animation: water 50s infinite;
 }
 @keyframes water {
     from{
@@ -27,4 +28,11 @@ body{
     to{
         background-position: left 1000px top 0;
     }
+}
+.footer{
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translate(-50%, -50);
+    color: aliceblue;
 }
