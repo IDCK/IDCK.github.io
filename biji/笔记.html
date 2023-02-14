@@ -1,0 +1,775 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+
+<style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+.mac-os-11 { --title-bar-height:28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex:2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+
+/* open-sans-italic - latin-ext_latin */
+
+/* open-sans-700 - latin-ext_latin */
+
+/* open-sans-700italic - latin-ext_latin */
+
+:root {
+    --title-color: #8064a9;
+    --text-color: #444444;
+    --light-text-color: #666666;
+    --lighter-text-color: #888888;
+    --link-color: #2aa899;
+    --code-color: #745fb5;
+    --shadow-color: #eee;
+    --border-quote: rgba(116, 95, 181, 0.2);
+    --border-quote-grey: #c8c8c8;
+    --border: #e7e7e7;
+    --link-bottom: #bbb;
+    --shadow: 3px 3px 10px var(--shadow-color);
+    --inline-code-bg: #f4f2f9;
+    --header-weight: normal;
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: var(var(--light-text-color));
+    --active-file-text-color: var(--title-color);
+    --active-file-bg-color: var(--shadow-color);
+    --item-hover-bg-color: var(--shadow-color);
+    --active-file-border-color: var(var(--title-color));
+    --base-font: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --title-font: "EB Garamond", "Source Sans Pro", serif;
+    --monospace: Courier, Monospace !important;
+}
+
+
+/* 打印 */
+
+@media print {
+    html {
+        font-size: 0.9rem;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+    #write {
+        max-width: 100%;
+    }
+    @page {
+        size: A3;
+        /* PDF output size */
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-rendering: optimizelegibility;
+    -webkit-font-smoothing: initial;
+}
+
+body {
+    color: var(--text-color);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+    letter-spacing: 0;
+    overflow-x: hidden;
+}
+
+
+/* 页边距 和 页面大小 */
+
+#write {
+    font-family: var(--base-font);
+    /* max-width: 914px; */
+    margin: 0 auto;
+    padding: 1rem 4rem;
+    padding-bottom: 100px;
+}
+
+#write p {
+    line-height: 1.6rem;
+    word-spacing: 0.05rem;
+}
+
+body>*:first-child {
+    margin-top: 0 !important;
+}
+
+body>*:last-child {
+    margin-bottom: 0 !important;
+}
+
+
+/* Link 链接 */
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+#write a {
+    border-bottom: 1px solid var(--link-bottom);
+}
+
+.md-content {
+    color: var(--light-text-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: var(--header-weight);
+    line-height: 1.3;
+    cursor: text;
+    color: var(--title-color);
+    font-family: var(--title-font);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+h1:after {
+    content: "";
+    display: block;
+    margin: 0.2rem auto 0;
+    width: 6rem;
+    height: 2px;
+    border-bottom: 2px solid var(--title-color);
+}
+
+h2 {
+    padding-left: 0.4em;
+    border-left: 0.4em solid var(--title-color);
+    border-bottom: 1px solid var(--title-color);
+}
+
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+
+p,
+blockquote,
+ul,
+ol,
+dl,
+table {
+    margin: 0.8em 0;
+}
+
+
+/* horizontal rule */
+
+hr {
+    margin: 1.5em auto;
+    border-top: 1px solid var(--border);
+}
+
+
+/* 列表 */
+
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+
+li p.first {
+    display: inline-block;
+}
+
+ul,
+ol {
+    padding-left: 2rem;
+}
+
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+
+#write ol li,
+ul li {
+    padding-left: 0.1rem;
+}
+
+
+/* 引用 */
+
+blockquote {
+    border-left: 0.3rem solid var(--border-quote);
+    padding-left: 1em;
+    font-family: var(--base-font);
+}
+
+
+/* 表格 */
+
+table {
+    margin-bottom: 1.25rem;
+}
+
+table th,
+table td {
+    padding: 8px;
+    line-height: 1.25rem;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+}
+
+table th {
+    font-weight: bold;
+}
+
+table thead th {
+    vertical-align: middle;
+}
+
+table tr:nth-child(2n),
+thead {
+    background-color: #fcfcfc;
+}
+
+
+/* 粗体 */
+
+#write strong {
+    padding: 0 2px;
+    font-weight: bold;
+}
+
+
+/* inline code */
+code,
+tt {
+    padding: 2px 4px;
+    border-radius: 0.3rem;
+    font-family: var(--monospace);
+    font-size: 0.9rem;
+    color: var(--code-color);
+    background-color: var(--inline-code-bg);
+    margin: 0 2px;
+}
+
+#write .md-footnote {
+    color: var(--code-color);
+    background-color: var(--inline-code-bg);
+}
+
+
+/* highlight. */
+
+#write mark {
+    background: rgb(255, 255, 196);
+    color: var(--text-color);
+}
+
+#write del {
+    padding: 1px 2px;
+}
+
+.md-task-list-item>input {
+    margin-left: -1.3em;
+}
+
+#write pre.md-meta-block {
+    padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+    bottom: 0.375rem;
+}
+
+
+/* 图片 */
+
+.md-image>.md-meta {
+    border-radius: 3px;
+    font-family: var(--monospace);
+    padding: 2px 0 0 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+
+/* 图片靠左显示 */
+
+
+/* p .md-image:only-child {
+  width: auto;
+  text-align: left;
+  margin-left: 2rem;
+} */
+
+
+/* 写![shadow-...]() 显示图片阴影 */
+
+img[alt|="shadow"] {
+    box-shadow: var(--shadow);
+}
+
+
+/* TOC */
+
+#write a.md-toc-inner {
+    line-height: 1.6;
+    white-space: pre-line;
+    border-bottom: none;
+    color: var(--light-text-color);
+    font-size: 0.9rem;
+}
+
+.md-toc-h1 .md-toc-inner {
+    margin-left: 0;
+    font-weight: normal;
+}
+
+header,
+.context-menu,
+.megamenu-content,
+footer {
+    font-family: var(--base-font);
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state {
+    visibility: visible;
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #e6f0fe;
+}
+
+
+/* Code fences */
+
+
+/* border, bg, font */
+
+.md-fences {
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: #fdfdfd !important;
+    font-size: 0.9rem;
+}
+
+
+/* 代码框阴影 */
+
+
+/* #write pre.md-fences {
+  display: block;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: var(--shadow);
+} */
+
+.cm-s-inner .cm-variable {
+    color: var(--text-color);
+}
+
+.cm-s-inner {
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.cm-s-inner.CodeMirror,
+.cm-s-inner .CodeMirror-gutters {
+    color: #3a3432 !important;
+    border: none;
+}
+
+.cm-s-inner .CodeMirror-gutters {
+    color: #6d8a88;
+}
+
+.cm-s-inner .CodeMirror-linenumber {
+    padding: 0 0.1rem 0 0.3rem;
+    color: #b8b5b4;
+}
+
+.cm-s-inner .CodeMirror-matchingbracket {
+    text-decoration: underline;
+    color: #a34e8f !important;
+}
+
+#fences-auto-suggest .active {
+    background: #ddd;
+}
+
+.cm-s-inner span.cm-comment {
+    color: #9daab6;
+}
+
+.cm-s-inner span.cm-builtin {
+    color: #0451a5;
+}
+
+
+/* language tip */
+
+#write .code-tooltip {
+    border: 1px solid var(--border);
+}
+
+.auto-suggest-container {
+    border-color: #b4b4b4;
+}
+
+.auto-suggest-container .autoComplt-hint.active {
+    background: #b4b4b4;
+    color: inherit;
+}
+
+
+/* task list */
+
+#write .md-task-list-item>input {
+    -webkit-appearance: initial;
+    display: block;
+    position: absolute;
+    border: 1px solid #b4b4b4;
+    border-radius: 0.2rem;
+    margin-top: 0.3rem;
+    height: 1rem;
+    width: 1rem;
+    transition: background 0.3s;
+}
+
+#write .md-task-list-item>input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+#write .md-task-list-item>input:hover {
+    background: #ddd;
+}
+
+#write .md-task-list-item>input[checked]::before {
+    content: "";
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    height: 60%;
+    width: 2px;
+    transform: rotate(40deg);
+    background: #333;
+}
+
+#write .md-task-list-item>input[checked]::after {
+    content: "";
+    position: absolute;
+    top: 46%;
+    left: 25%;
+    height: 30%;
+    width: 2px;
+    transform: rotate(-40deg);
+    background: #333;
+}
+
+#write .md-task-list-item>p {
+    transition: color 0.3s, opacity 0.3s;
+}
+
+#write .md-task-list-item.task-list-done>p {
+    color: #b4b4b4;
+    text-decoration: line-through;
+}
+
+#write .md-task-list-item.task-list-done>p>.md-emoji {
+    opacity: 0.5;
+}
+
+#write .md-task-list-item.task-list-done>p>.md-link>a {
+    opacity: 0.6;
+}
+
+
+/* sidebar */
+
+#typora-sidebar,
+.typora-node #typora-sidebar {
+    box-shadow: 3px 0px 10px var(--shadow-color);
+}
+
+.sidebar-content-content {
+    font-size: 0.9rem;
+}@import "";
+
+:root {
+  --base-font: Consolas , "Ubuntu Mono", "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --title-font: var(--base-font);
+  --monospace: "Ubuntu Mono", Courier, Monospace !important;
+}
+
+/* Cesno style start */
+
+.cm-s-inner .cm-variable      {color: #f39800;}
+
+.cm-s-inner .cm-variable-3    {color: #9ed44c; font-weight: bold;}
+
+.cm-s-inner .cm-number        {color: #e95295;}
+
+.cm-s-inner .cm-keyword       {color: #bc64a4; font-weight: bold;}
+
+.cm-s-inner .cm-def           {color: #0094c8;}
+
+.cm-s-inner .cm-operator      {color: #a59aca; font-weight: bold;}
+
+/* .cm-s-inner .cm-atom          {color: #c5c56a; font-weight: bold;} */
+
+/* Cesno style end */
+
+
+</style><title>笔记</title>
+</head>
+<body class='typora-export os-windows'><div class='typora-export-content'>
+<div id='write'  class=''><h2 id='总体技巧划线法）'><span>总体技巧（划线法）</span></h2><ol start='' ><li><span>必写内容划横线</span></li><li><span>具体方法不一定全写的地方划波浪线</span></li><li><span>材料全部归纳完成之后大概数一下字数进行取舍</span></li><li><span>申论永远是按点给分，不需要花费大量时间去想从那个方面作答</span></li><li><span>只要能概括材料，概括出主体含义，都会给分</span></li></ol><h2 id='归纳概括题'><span>归纳概括题</span></h2><ol start='' ><li><span>问啥答啥，有啥写啥（问小王不要写小李，不要脑补）</span></li><li><span>理解语义，技巧辅助（理解大于技巧）</span></li><li><span>读出层次，找对大哥</span></li><li><span>书写规范，形意结合</span></li></ol><h2 id='实例'><span>实例</span></h2><h3 id='审题'><span>审题</span></h3><ol start='' ><li><span>范围（写材料几就只看材料几）</span></li><li><span>内容</span></li><li><span>要求（只看字数）</span></li></ol><blockquote><p><span>要画材料中的重要事件</span></p><p><span>在一些相对比较繁杂的材料里面，找到了一段比较书面化的语句，那么这些语句可以用在答案中 —— 找大哥（不要轻易把口号写上去）</span></p><p><code>这些</code><span>等类似词语表示总结，后面的内容会包含在前面里</span></p><p><span>总书记的话要用在大作文，10分的题不配</span></p><p><span>概括题根据句号来判断，不要写做法，写</span><strong><span>结果</span></strong><span>！写</span><strong><span>要干什么</span></strong><span>！</span></p><p><span>涉及到有他人评价的材料，几个说 + 做了什么事情好</span></p><p><span>没有能直接抄的内容的材料，需要自己概括，寻找问题的主要答案进行提炼</span></p><p><span>三农：农村、农民、农业</span></p><p><span>时间不确定就别写，写错了出大事，尽量只写一定正确的</span></p><p><span>材料中有时间，那么一定要看有没有重大会议或者重大决策</span></p><p><span>找不同、变化等，其目的是找不同的角度</span></p></blockquote><h2 id='综合分析题'><span>综合分析题</span></h2><ol start='' ><li><span>问啥答啥，有啥写啥（问小王不要写小李，不要脑补）</span></li><li><span>理解语义，技巧辅助（理解大于技巧）</span></li><li><span>读出层次，找对大哥</span></li><li><span>书写规范，形意结合</span></li></ol><blockquote><p><span>尤其注意题目新造词的解释和意思</span></p><p><span>最多4个方面，再多说明读的不对或者没有进行合并</span></p><p><span>不要自我联想材料没有的内容</span></p><p><span>材料中并列的内容要么全写，要么全不写</span></p><p><span>材料中有明显并列的内容需要重点注意，要注意总结句中的逻辑关系推理，要找到最初的一切的起因。</span></p><p><span>答案一定是相对理论化、书面化的</span></p><p><span>题例：毁灭可能是创新（毁灭旧事物为新事物腾地方）：辩证地看材料中冲突的两种词语，出现冲突性词语的时候，尤其注意转折词！负面词语要向正面词语靠拢</span></p><p><span>习大大/宏观政策</span><code>大段大段</code><span>出现的话，这一段要用在大作文，不要用在10分的小题上</span></p><p><span>无论笔试还是面试，统统换成习总书记，政治悟性</span></p><p><span>农村问题，公平最重要，只要规矩定好了不动，哪怕实行先来后到，后面的都是差一点的东西，就不会给到村支书压力，虽然质量不重要，但是数量很重要，如果分完了，后续再来的没有了，那么压力才会出现</span></p><p><span>对某句话的理解，需要看题目中给定的词语是在说什么，如果是在说问题方面的，一定要有对策，如果题目通篇没提对策，则要自己总结简短的不超过20字的对策</span></p><p><span>对策出现在材料里的关键词：要、想</span></p><p><span>税收、教育等要联想到义务，即个人、企业和国家之间的一种</span><code>合作</code><span>，不要把政府写的太过强势</span></p><p><span>现在北京最大的居住社区是</span><code>天通苑</code></p><p><span>材料中没有配写到答案里面的时候，需要自行提炼总结</span></p><p><span>改善干部</span><code>拖延症</code><span>的，均可叫做改善干群关系，干部对居民的态度转变均会改变干群关系。</span></p><p>&nbsp;</p></blockquote><h3 id='答题结构'><span>答题结构</span></h3><p><strong><span>观点 + 问题 + 对策</span></strong></p><blockquote><p><span>不分点的时候要这么写</span></p></blockquote><p><strong><span>分享经验的发言稿</span></strong></p><blockquote><p><span>考虑题干是怎么问的，材料中哪怕出现了很多的问题，但是一定要侧重于写经验，即做法和对策，必要时需要将材料中的问题转化成对策</span></p></blockquote><p><strong><span>分析理解xxx的内涵</span></strong></p><blockquote><p><span>看材料有什么写什么，没有固定的形式。例：只有作用就写作用</span></p></blockquote><h2 id='对策启示题'><span>对策启示题</span></h2><ol start='' ><li><span>概括对策</span></li><li><span>借鉴对策</span></li><li><span>提出对策</span></li></ol><h3 id='对策的3个来源'><span>对策的3个来源</span></h3><ol start='' ><li><span>概括材料抄</span></li><li><span>借鉴</span></li><li><span>提出</span></li></ol><h3 id='假设你作为某市公职人员时看到某平台怎么做了'><span>假设你作为某市公职人员时，看到某平台怎么做了</span></h3><ol start='' ><li><span>没有直接提到本市，可以看做是其他市的平台 —&gt; 鼓励我们市的平台学习借鉴</span></li><li><span>要结合实际，不能胡写乱写现实中不存在的内容和法规</span></li></ol><blockquote><p><span>基本都是答对策</span></p><p><span>需要从特定商家转换为商家，将答案普适性</span></p><p><span>不要和材料争论，材料说什么是对的，起码暂时认为是对的，例如下面这句：</span></p><p><img src="C:\Users\IDCK\AppData\Roaming\Typora\typora-user-images\image-20230208113647647.png" referrerpolicy="no-referrer" alt="image-20230208113647647"></p><p><span>现实中，诚信问题并不会被认为是奇数和服务水平的问题，但是题目材料中明确说明了，那就暂时性地认为诚信问题包含这两方面，材料为王。</span></p><p><span>国家出台政策的时候不能叫借鉴，因为不在一个层面上，要写积极响应、贯彻落实、推动施行法规/政策</span></p><p><span>响应法规/政策，地方化出台《xxx意见》</span></p><p><span>同级的才能说借鉴，</span><strong><span>特别注意</span></strong></p><p><span>注意自己在材料中的身份，如果是直接管理者，不能是借鉴做法，要是提出对策</span></p><ol start='' ><li><span>下属单位要做什么</span></li><li><span>响应国家xx政策</span></li><li><span>自己的单位要做什么</span></li><li><span>下属单位具体的执行人，例：商务平台的商家</span></li></ol><p><span>涉及到国家政策的内容，不要按照材料顺序写答案，要按照层级高低写</span></p><p><span>答题框架要搭好，要提前制定写哪几个方面</span></p><p><span>涉及到执法/管理的，如果题目中说管理力量跟不上，不要轻易说增加管理力量，要写提高管理水平</span></p><p><span>在xx下功夫，说明这方面有缺失，需要完善</span></p><p><span>没有什么东西，增设什么东西</span></p><p><span>多看看</span><code>人民网</code><span>的内容，对此类题会有很大帮助</span></p></blockquote><h2 id='对策题总体思路'><span>对策题总体思路</span></h2><ol start='' ><li><span>概括 -&gt;选代表</span></li><li><span>启发 -&gt;普适性（不存在普适性的，要从一个具体的经验到另一个具体的经验）</span></li></ol><p><code>整体阅读</code><span>将几个材料的内容汇总，将每个材料清晰地对上每项答案，以及各个材料之间的关系</span></p><p><span>尤其是多则材料，一定要联系起来</span></p><h2 id='应用文用来用的文一种文体'><span>应用文：用来用的文，一种文体</span></h2><ol start='' ><li><span>格式规范</span></li><li><span>结构完整</span></li><li><span>内容充实</span></li></ol><h3 id='文体格式一般格式）'><span>文体格式（一般格式）</span></h3><p><span>							</span><span>标题：关于+主题词+的+文种</span></p><p><span>主送/称呼：</span></p><p><span>	</span><span>一. 背景、问题或成绩；（高度概括）</span></p><p><span>	</span><span>二. 原因、危害或意义；（简化分析）</span></p><p><span>	</span><span>三、对策：绝大多数应用文以对策为主；（细化具体）</span></p><p><span>	</span><span>四、结尾：号召、展望、总结评价。</span></p><p><span>																</span><span>发文者（身份）</span></p><p><span>																	</span><span>xx年xx月日</span></p><blockquote><p><span>完整的格式如下：</span></p><p><span>标题</span></p><p><span>称呼</span></p><p><span>正文/主体</span></p><p><span>落款</span></p><p>&nbsp;</p><p><span>关于称呼和落款，看题目的具体内容，如果没有给对象就不写称呼，如果没给身份就不要写落款</span></p><p><span>如果是讲解稿，一般是给领导看的，称呼写领导、同志们</span></p><h4 id='应用文的重点'><span>应用文的重点</span></h4><p><strong><span>搭结构，分层次，列标题</span></strong></p><h4 id='应用文的经验'><span>应用文的经验</span></h4><p><strong><span>四个左右的层次，一般不要打乱材料顺序</span></strong></p></blockquote><p><img src="C:\Users\IDCK\AppData\Roaming\Typora\typora-user-images\image-20230212204015059.png" referrerpolicy="no-referrer" alt="image-20230212204015059"></p><p><strong><span>主要集中在2、3、4行的内容，其他的考的很少</span></strong></p><blockquote><h4 id='发言稿为什么不用写落款'><span>发言稿为什么不用写落款？</span></h4><p><span>本人站在台子上发言的文章，所以不需要落款</span></p></blockquote><h3 id='对于材料的分析'><span>对于材料的分析</span></h3><blockquote><p><span>要分得清正面和负面材料</span></p><p><span>要把所有能体现这篇文章作用的内容写进去，比如乡镇创业拿了多少收入，这些才是衡量一个发言稿是否值得去听的根本标准</span></p><p><span>关于身份自我介绍的问题，不要写是哪里调过去的，直接写职务。不要注重自己，尽量剔除个人色彩</span></p><p><span>要写怎么做，不要过多去描写怎么发现的问题</span></p><p><span>通过快速阅读确定材料结构，有次退出怎么用这段材料，否则写起来会很乱</span></p><p><span>不要越职，要考虑实际情况，比如你是某协会会长，你不能要求政府做什么，也不能让政府多多来查自己的行业，否则会被同行恨死，正确的做法是倡导自己的行业、自己的同事要做什么，一些诟病一带而过即可，给同行企业留点脸面，始终要站在能给本协会下的企业兜脸、并能继续发展并从轻处置的角度写</span></p><p><span>要确定材料给出的什么好，大方向往这里靠</span></p><p><span>当某段材料没有能直接写进答案里的话的时候，先看其他材料给出的能写进答案的话的格式，再从这段材料中推出相应的语句</span></p><p><strong><span>少写现有的缺点！尤其不要从片面写到全部！尽量一笔带过！</span></strong></p><p><span>两条答案中有相同的关键字，一定要合并！</span></p></blockquote><p>&nbsp;</p></div></div>
+</body>
+</html>
