@@ -1,763 +1,1603 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
-
-<style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
-.mac-os-11 { --title-bar-height:28px; }
-html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
-iframe { margin: auto; }
-a.url { word-break: break-all; }
-a:active, a:hover { outline: 0px; }
-.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
-#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
-#write.first-line-indent p { text-indent: 2em; }
-#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
-#write.first-line-indent li { margin-left: 2em; }
-.for-image #write { padding-left: 8px; padding-right: 8px; }
-body.typora-export { padding-left: 30px; padding-right: 30px; }
-.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
-.typora-export .task-list-item input { pointer-events: none; }
-@media screen and (max-width: 500px) {
-  body.typora-export { padding-left: 0px; padding-right: 0px; }
-  #write { padding-left: 20px; padding-right: 20px; }
-  .CodeMirror-sizer { margin-left: 0px !important; }
-  .CodeMirror-gutters { display: none !important; }
-}
-#write li > figure:last-child { margin-bottom: 0.5rem; }
-#write ol, #write ul { position: relative; }
-img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
-button, input, select, textarea { color: inherit; font: inherit; }
-input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
-*, ::after, ::before { box-sizing: border-box; }
-#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
-#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
-p { line-height: inherit; }
-h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
-p { orphans: 4; }
-h1 { font-size: 2rem; }
-h2 { font-size: 1.8rem; }
-h3 { font-size: 1.6rem; }
-h4 { font-size: 1.4rem; }
-h5 { font-size: 1.2rem; }
-h6 { font-size: 1rem; }
-.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
-.hidden { display: none; }
-.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
-a { cursor: pointer; }
-sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
-sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
-#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
-figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
-figure > table { margin: 0px; }
-tr { break-inside: avoid; break-after: auto; }
-thead { display: table-header-group; }
-table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
-table.md-table td { min-width: 32px; }
-.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
-.CodeMirror-linenumber { user-select: none; }
-.CodeMirror { text-align: left; }
-.CodeMirror-placeholder { opacity: 0.3; }
-.CodeMirror pre { padding: 0px 4px; }
-.CodeMirror-lines { padding: 0px; }
-div.hr:focus { cursor: none; }
-#write pre { white-space: pre-wrap; }
-#write.fences-no-line-wrapping pre { white-space: pre; }
-#write pre.ty-contain-cm { white-space: normal; }
-.CodeMirror-gutters { margin-right: 4px; }
-.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
-.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
-#write .md-fences.mock-cm { white-space: pre-wrap; }
-.md-fences.md-fences-with-lineno { padding-left: 0px; }
-#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
-.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
-.CodeMirror-line, twitterwidget { break-inside: avoid; }
-.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
-.footnotes + .footnotes { margin-top: 0px; }
-.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
-li div { padding-top: 0px; }
-blockquote { margin: 1rem 0px; }
-li .mathjax-block, li p { margin: 0.5rem 0px; }
-li blockquote { margin: 1rem 0px; }
-li { margin: 0px; position: relative; }
-blockquote > :last-child { margin-bottom: 0px; }
-blockquote > :first-child, li > :first-child { margin-top: 0px; }
-.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
-#write .footnote-line { white-space: pre-wrap; }
-@media print {
-  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
-  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
-  .typora-export * { -webkit-print-color-adjust: exact; }
-  .typora-export #write { break-after: avoid; }
-  .typora-export #write::after { height: 0px; }
-  .is-mac table { break-inside: avoid; }
-  .typora-export-show-outline .typora-export-sidebar { display: none; }
-}
-.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
-a img, img a { cursor: pointer; }
-pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
-p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
-#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
-p > .md-image:only-child { display: inline-block; width: 100%; }
-#write .MathJax_Display { margin: 0.8em 0px 0px; }
-.md-math-block { width: 100%; }
-.md-math-block:not(:empty)::after { display: none; }
-.MathJax_ref { fill: currentcolor; }
-[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
-.md-task-list-item { position: relative; list-style-type: none; }
-.task-list-item.md-task-list-item { padding-left: 0px; }
-.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
-.math { font-size: 1rem; }
-.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
-.md-toc-content { position: relative; margin-left: 0px; }
-.md-toc-content::after, .md-toc::after { display: none; }
-.md-toc-item { display: block; color: rgb(65, 131, 196); }
-.md-toc-item a { text-decoration: none; }
-.md-toc-inner:hover { text-decoration: underline; }
-.md-toc-inner { display: inline-block; cursor: pointer; }
-.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
-.md-toc-h2 .md-toc-inner { margin-left: 2em; }
-.md-toc-h3 .md-toc-inner { margin-left: 4em; }
-.md-toc-h4 .md-toc-inner { margin-left: 6em; }
-.md-toc-h5 .md-toc-inner { margin-left: 8em; }
-.md-toc-h6 .md-toc-inner { margin-left: 10em; }
-@media screen and (max-width: 48em) {
-  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
-  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
-  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
-  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
-}
-a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
-.footnote-line a:not(.reversefootnote) { color: inherit; }
-.md-attr { display: none; }
-.md-fn-count::after { content: "."; }
-code, pre, samp, tt { font-family: var(--monospace); }
-kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
-.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
-code { text-align: left; vertical-align: initial; }
-a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
-.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
-.md-diagram-panel > svg { max-width: 100%; }
-[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
-[lang="mermaid"] .node text { font-size: 1rem; }
-table tr th { border-bottom: 0px; }
-video { max-width: 100%; display: block; margin: 0px auto; }
-iframe { max-width: 100%; width: 100%; border: none; }
-.highlight td, .highlight tr { border: 0px; }
-mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
-.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
-.md-expand mark .md-meta { opacity: 0.3 !important; }
-mark .md-meta { color: rgb(0, 0, 0); }
-@media print {
-  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
-}
-.md-diagram-panel .messageText { stroke: none !important; }
-.md-diagram-panel .start-state { fill: var(--node-fill); }
-.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
-.md-fences.md-fences-math { font-size: 1em; }
-.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
-.md-fences-advanced:not(.md-focus) { background: inherit; }
-.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
-.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
-.typora-export-show-outline #write { --webkit-flex:2; flex: 2 1 0%; }
-.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
-@media screen and (max-width: 1024px) {
-  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
-}
-@media screen and (max-width: 800px) {
-  .typora-export-sidebar { display: none; }
-}
-.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; }
-.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
-.outline-content strong { font-weight: 400; }
-.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
-.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
-.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
-.outline-expander:hover::before { content: ""; }
-.outline-h1 > .outline-item { padding-left: 0px; }
-.outline-h2 > .outline-item { padding-left: 1em; }
-.outline-h3 > .outline-item { padding-left: 2em; }
-.outline-h4 > .outline-item { padding-left: 3em; }
-.outline-h5 > .outline-item { padding-left: 4em; }
-.outline-h6 > .outline-item { padding-left: 5em; }
-.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
-.outline-label:hover { text-decoration: underline; }
-.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
-.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
-.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
-.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
-.outline-children { display: none; }
-.info-panel-tab-wrapper { display: none; }
-.outline-item-open > .outline-children { display: block; }
-.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
-.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
-.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
-.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
-.typora-export-collapse-outline .outline-children { display: none; }
-.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
-.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
-.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
-.md-inline-math-container mjx-container { zoom: 0.95; }
-
-
-@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
-
-/* open-sans-regular - latin-ext_latin */
-
-/* open-sans-italic - latin-ext_latin */
-
-/* open-sans-700 - latin-ext_latin */
-
-/* open-sans-700italic - latin-ext_latin */
-
-:root {
-    --bg-color: #4b4a4a;
-    --title-color: #34abcf;
-    --text-color: #f7f4f4;
-    --light-text-color: #666666;
-    --lighter-text-color: #695454;
-    --link-color: #2aa899;
-    --code-color: #d3d8da;
-    --shadow-color: #2e2e2e;
-    --border-quote: rgba(116, 95, 181, 0.2);
-    --border-quote-grey: #c8c8c8;
-    --border: #e7e7e7;
-    --link-bottom: #bbb;
-    --shadow: 3px 3px 10px var(--shadow-color);
-    --inline-code-bg: #2c2b2e;
-    --header-weight: normal;
-    --side-bar-bg-color: #0c0c0c;
-    --control-text-color: var(var(--light-text-color));
-    --active-file-text-color: var(--title-color);
-    --active-file-bg-color: var(--shadow-color);
-    --item-hover-bg-color: var(--shadow-color);
-    --active-file-border-color: var(var(--title-color));
-    --base-font: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --title-font: "EB Garamond", "Source Sans Pro", serif;
-    --monospace: Courier, Monospace !important;
-}
-
-blockquote {
-    border-left: 4px solid #42a7b9;
-    padding: 10px 0px 10px 15px;
-    color: #eeeeee;
-}
-
-/* 打印 */
-
-@media print {
-    html {
-        font-size: 0.9rem;
-    }
-    table,
-    pre {
-        page-break-inside: avoid;
-    }
-    pre {
-        word-wrap: break-word;
-    }
-    #write {
-        max-width: 100%;
-    }
-    @page {
-        size: A3;
-        /* PDF output size */
-        margin-left: 0;
-        margin-right: 0;
-    }
-}
-
-html {
-    font-size: 16px;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    text-rendering: optimizelegibility;
-    -webkit-font-smoothing: initial;
-}
-
-body {
-    color: var(--text-color);
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.6;
-    letter-spacing: 0;
-    overflow-x: hidden;
-}
-
-
-/* 页边距 和 页面大小 */
-
-#write {
-    font-family: var(--base-font);
-    /* max-width: 914px; */
-    margin: 0 auto;
-    padding: 1rem 4rem;
-    padding-bottom: 100px;
-    background-color: #2e2c2c;
-}
-
-#write p {
-    line-height: 1.6rem;
-    word-spacing: 0.05rem;
-}
-
-body>*:first-child {
-    margin-top: 0 !important;
-}
-
-body>*:last-child {
-    margin-bottom: 0 !important;
-}
-
-
-/* Link 链接 */
-
-a {
-    color: var(--link-color);
-    text-decoration: none;
-}
-
-#write a {
-    border-bottom: 1px solid var(--link-bottom);
-}
-
-.md-content {
-    color: var(--light-text-color);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    position: relative;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    font-weight: var(--header-weight);
-    line-height: 1.3;
-    cursor: text;
-    color: var(--title-color);
-    font-family: var(--title-font);
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 2rem;
-    line-height: 1.5;
-}
-
-h1:after {
-    content: "";
-    display: block;
-    margin: 0.2rem auto 0;
-    width: 6rem;
-    height: 2px;
-    border-bottom: 2px solid var(--title-color);
-}
-
-h2 {
-    padding-left: 0.4em;
-    border-left: 0.4em solid var(--title-color);
-    border-bottom: 1px solid var(--title-color);
-}
-
-h1 tt,
-h1 code {
-    font-size: inherit;
-}
-h2 tt,
-h2 code {
-    font-size: inherit;
-}
-h3 tt,
-h3 code {
-    font-size: inherit;
-}
-h4 tt,
-h4 code {
-    font-size: inherit;
-}
-h5 tt,
-h5 code {
-    font-size: inherit;
-}
-h6 tt,
-h6 code {
-    font-size: inherit;
-}
-
-p,
-blockquote,
-ul,
-ol,
-dl,
-table {
-    margin: 0.8em 0;
-}
-
-
-/* horizontal rule */
-
-hr {
-    margin: 1.5em auto;
-    border-top: 1px solid var(--border);
-}
-
-
-/* 列表 */
-
-li>ol,
-li>ul {
-    margin: 0 0;
-}
-
-li p.first {
-    display: inline-block;
-}
-
-ul,
-ol {
-    padding-left: 2rem;
-}
-
-ul:first-child,
-ol:first-child {
-    margin-top: 0;
-}
-
-ul:last-child,
-ol:last-child {
-    margin-bottom: 0;
-}
-
-#write ol li,
-ul li {
-    padding-left: 0.1rem;
-}
-
-
-/* 引用 */
-
-blockquote {
-    border-left: 0.3rem solid var(--border-quote);
-    padding-left: 1em;
-    font-family: var(--base-font);
-}
-
-
-/* 表格 */
-
-table {
-    margin-bottom: 1.25rem;
-}
-
-table th,
-table td {
-    padding: 8px;
-    line-height: 1.25rem;
-    vertical-align: middle;
-    border: 1px solid #ddd;
-}
-
-table th {
-    font-weight: bold;
-}
-
-table thead th {
-    vertical-align: middle;
-}
-
-table tr:nth-child(2n),
-thead {
-    background-color: #fcfcfc;
-}
-
-
-/* 粗体 */
-
-#write strong {
-    padding: 0 2px;
-    font-weight: bold;
-}
-
-
-/* inline code */
-code,
-tt {
-    padding: 2px 4px;
-    border-radius: 0.3rem;
-    font-family: var(--monospace);
-    font-size: 0.9rem;
-    color: var(--code-color);
-    background-color: var(--inline-code-bg);
-    margin: 0 2px;
-    color: seashell;
-}
-
-#write .md-footnote {
-    color: var(--code-color);
-    background-color: var(--inline-code-bg);
-}
-
-
-/* highlight. */
-
-#write mark {
-    background: rgb(255, 255, 196);
-    color: var(--text-color);
-}
-
-#write del {
-    padding: 1px 2px;
-}
-
-.md-task-list-item>input {
-    margin-left: -1.3em;
-}
-
-#write pre.md-meta-block {
-    padding: 1rem;
-    font-size: 85%;
-    line-height: 1.45;
-    background-color: #272525;
-    border: 0;
-    border-radius: 3px;
-    color: #979797;
-    margin-top: 0 !important;
-}
-
-.mathjax-block>.code-tooltip {
-    bottom: 0.375rem;
-}
-
-
-/* 图片 */
-
-.md-image>.md-meta {
-    border-radius: 3px;
-    font-family: var(--monospace);
-    padding: 2px 0 0 4px;
-    font-size: 0.9em;
-    color: inherit;
-}
-
-
-/* 图片靠左显示 */
-
-
-/* p .md-image:only-child {
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width initial-scale=1'>
+
+    <style type='text/css'>
+        html {
+            overflow-x: initial !important;
+        }
+
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --select-text-bg-color: #B5D6FC;
+            --select-text-font-color: auto;
+            --monospace: "Lucida Console", Consolas, "Courier", monospace;
+            --title-bar-height: 20px;
+        }
+
+        .mac-os-11 {
+            --title-bar-height: 28px;
+        }
+
+        html {
+            font-size: 14px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+            height: auto;
+            inset: 0px;
+            font-size: 1rem;
+            line-height: 1.42857;
+            overflow-x: hidden;
+            background: inherit;
+            tab-size: 4;
+        }
+
+        iframe {
+            margin: auto;
+        }
+
+        a.url {
+            word-break: break-all;
+        }
+
+        a:active,
+        a:hover {
+            outline: 0px;
+        }
+
+        .in-text-selection,
+        ::selection {
+            text-shadow: none;
+            background: var(--select-text-bg-color);
+            color: var(--select-text-font-color);
+        }
+
+        #write {
+            margin: 0px auto;
+            height: auto;
+            width: inherit;
+            word-break: normal;
+            overflow-wrap: break-word;
+            position: relative;
+            white-space: normal;
+            overflow-x: visible;
+            padding-top: 36px;
+        }
+
+        #write.first-line-indent p {
+            text-indent: 2em;
+        }
+
+        #write.first-line-indent li p,
+        #write.first-line-indent p * {
+            text-indent: 0px;
+        }
+
+        #write.first-line-indent li {
+            margin-left: 2em;
+        }
+
+        .for-image #write {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        body.typora-export {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        .typora-export .footnote-line,
+        .typora-export li,
+        .typora-export p {
+            white-space: pre-wrap;
+        }
+
+        .typora-export .task-list-item input {
+            pointer-events: none;
+        }
+
+        @media screen and (max-width: 500px) {
+            body.typora-export {
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+
+            #write {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .CodeMirror-sizer {
+                margin-left: 0px !important;
+            }
+
+            .CodeMirror-gutters {
+                display: none !important;
+            }
+        }
+
+        #write li>figure:last-child {
+            margin-bottom: 0.5rem;
+        }
+
+        #write ol,
+        #write ul {
+            position: relative;
+        }
+
+        img {
+            max-width: 100%;
+            vertical-align: middle;
+            image-orientation: from-image;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            color: inherit;
+            font: inherit;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            line-height: normal;
+            padding: 0px;
+        }
+
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+        }
+
+        #write h1,
+        #write h2,
+        #write h3,
+        #write h4,
+        #write h5,
+        #write h6,
+        #write p,
+        #write pre {
+            width: inherit;
+        }
+
+        #write h1,
+        #write h2,
+        #write h3,
+        #write h4,
+        #write h5,
+        #write h6,
+        #write p {
+            position: relative;
+        }
+
+        p {
+            line-height: inherit;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            break-after: avoid-page;
+            break-inside: avoid;
+            orphans: 4;
+        }
+
+        p {
+            orphans: 4;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+        }
+
+        h4 {
+            font-size: 1.4rem;
+        }
+
+        h5 {
+            font-size: 1.2rem;
+        }
+
+        h6 {
+            font-size: 1rem;
+        }
+
+        .md-math-block,
+        .md-rawblock,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .md-blockmeta {
+            color: rgb(204, 204, 204);
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        a {
+            cursor: pointer;
+        }
+
+        sup.md-footnote {
+            padding: 2px 4px;
+            background-color: rgba(238, 238, 238, 0.7);
+            color: rgb(85, 85, 85);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        sup.md-footnote a,
+        sup.md-footnote a:hover {
+            color: inherit;
+            text-transform: inherit;
+            text-decoration: inherit;
+        }
+
+        #write input[type="checkbox"] {
+            cursor: pointer;
+            width: inherit;
+            height: inherit;
+        }
+
+        figure {
+            overflow-x: auto;
+            margin: 1.2em 0px;
+            max-width: calc(100% + 16px);
+            padding: 0px;
+        }
+
+        figure>table {
+            margin: 0px;
+        }
+
+        tr {
+            break-inside: avoid;
+            break-after: auto;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0px;
+            width: 100%;
+            overflow: auto;
+            break-inside: auto;
+            text-align: left;
+        }
+
+        table.md-table td {
+            min-width: 32px;
+        }
+
+        .CodeMirror-gutters {
+            border-right: 0px;
+            background-color: inherit;
+        }
+
+        .CodeMirror-linenumber {
+            user-select: none;
+        }
+
+        .CodeMirror {
+            text-align: left;
+        }
+
+        .CodeMirror-placeholder {
+            opacity: 0.3;
+        }
+
+        .CodeMirror pre {
+            padding: 0px 4px;
+        }
+
+        .CodeMirror-lines {
+            padding: 0px;
+        }
+
+        div.hr:focus {
+            cursor: none;
+        }
+
+        #write pre {
+            white-space: pre-wrap;
+        }
+
+        #write.fences-no-line-wrapping pre {
+            white-space: pre;
+        }
+
+        #write pre.ty-contain-cm {
+            white-space: normal;
+        }
+
+        .CodeMirror-gutters {
+            margin-right: 4px;
+        }
+
+        .md-fences {
+            font-size: 0.9rem;
+            display: block;
+            break-inside: avoid;
+            text-align: left;
+            overflow: visible;
+            white-space: pre;
+            background: inherit;
+            position: relative !important;
+        }
+
+        .md-fences-adv-panel {
+            width: 100%;
+            margin-top: 10px;
+            text-align: center;
+            padding-top: 0px;
+            padding-bottom: 8px;
+            overflow-x: auto;
+        }
+
+        #write .md-fences.mock-cm {
+            white-space: pre-wrap;
+        }
+
+        .md-fences.md-fences-with-lineno {
+            padding-left: 0px;
+        }
+
+        #write.fences-no-line-wrapping .md-fences.mock-cm {
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .md-fences.mock-cm.md-fences-with-lineno {
+            padding-left: 8px;
+        }
+
+        .CodeMirror-line,
+        twitterwidget {
+            break-inside: avoid;
+        }
+
+        .footnotes {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+
+        .footnotes+.footnotes {
+            margin-top: 0px;
+        }
+
+        .md-reset {
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+            outline: 0px;
+            vertical-align: top;
+            background: 0px 0px;
+            text-decoration: none;
+            text-shadow: none;
+            float: none;
+            position: static;
+            width: auto;
+            height: auto;
+            white-space: nowrap;
+            cursor: inherit;
+            -webkit-tap-highlight-color: transparent;
+            line-height: normal;
+            font-weight: 400;
+            text-align: left;
+            box-sizing: content-box;
+            direction: ltr;
+        }
+
+        li div {
+            padding-top: 0px;
+        }
+
+        blockquote {
+            margin: 1rem 0px;
+        }
+
+        li .mathjax-block,
+        li p {
+            margin: 0.5rem 0px;
+        }
+
+        li blockquote {
+            margin: 1rem 0px;
+        }
+
+        li {
+            margin: 0px;
+            position: relative;
+        }
+
+        blockquote> :last-child {
+            margin-bottom: 0px;
+        }
+
+        blockquote> :first-child,
+        li> :first-child {
+            margin-top: 0px;
+        }
+
+        .footnotes-area {
+            color: rgb(136, 136, 136);
+            margin-top: 0.714rem;
+            padding-bottom: 0.143rem;
+            white-space: normal;
+        }
+
+        #write .footnote-line {
+            white-space: pre-wrap;
+        }
+
+        @media print {
+
+            body,
+            html {
+                border: 1px solid transparent;
+                height: 99%;
+                break-after: avoid;
+                break-before: avoid;
+                font-variant-ligatures: no-common-ligatures;
+            }
+
+            #write {
+                margin-top: 0px;
+                padding-top: 0px;
+                border-color: transparent !important;
+            }
+
+            .typora-export * {
+                -webkit-print-color-adjust: exact;
+            }
+
+            .typora-export #write {
+                break-after: avoid;
+            }
+
+            .typora-export #write::after {
+                height: 0px;
+            }
+
+            .is-mac table {
+                break-inside: avoid;
+            }
+
+            .typora-export-show-outline .typora-export-sidebar {
+                display: none;
+            }
+        }
+
+        .footnote-line {
+            margin-top: 0.714em;
+            font-size: 0.7em;
+        }
+
+        a img,
+        img a {
+            cursor: pointer;
+        }
+
+        pre.md-meta-block {
+            font-size: 0.8rem;
+            min-height: 0.8rem;
+            white-space: pre-wrap;
+            background: rgb(204, 204, 204);
+            display: block;
+            overflow-x: hidden;
+        }
+
+        p>.md-image:only-child:not(.md-img-error) img,
+        p>img:only-child {
+            display: block;
+            margin: auto;
+        }
+
+        #write.first-line-indent p>.md-image:only-child:not(.md-img-error) img {
+            left: -2em;
+            position: relative;
+        }
+
+        p>.md-image:only-child {
+            display: inline-block;
+            width: 100%;
+        }
+
+        #write .MathJax_Display {
+            margin: 0.8em 0px 0px;
+        }
+
+        .md-math-block {
+            width: 100%;
+        }
+
+        .md-math-block:not(:empty)::after {
+            display: none;
+        }
+
+        .MathJax_ref {
+            fill: currentcolor;
+        }
+
+        [contenteditable="true"]:active,
+        [contenteditable="true"]:focus,
+        [contenteditable="false"]:active,
+        [contenteditable="false"]:focus {
+            outline: 0px;
+            box-shadow: none;
+        }
+
+        .md-task-list-item {
+            position: relative;
+            list-style-type: none;
+        }
+
+        .task-list-item.md-task-list-item {
+            padding-left: 0px;
+        }
+
+        .md-task-list-item>input {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            margin-left: -1.2em;
+            margin-top: calc(1em - 10px);
+            border: none;
+        }
+
+        .math {
+            font-size: 1rem;
+        }
+
+        .md-toc {
+            min-height: 3.58rem;
+            position: relative;
+            font-size: 0.9rem;
+            border-radius: 10px;
+        }
+
+        .md-toc-content {
+            position: relative;
+            margin-left: 0px;
+        }
+
+        .md-toc-content::after,
+        .md-toc::after {
+            display: none;
+        }
+
+        .md-toc-item {
+            display: block;
+            color: rgb(65, 131, 196);
+        }
+
+        .md-toc-item a {
+            text-decoration: none;
+        }
+
+        .md-toc-inner:hover {
+            text-decoration: underline;
+        }
+
+        .md-toc-inner {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .md-toc-h1 .md-toc-inner {
+            margin-left: 0px;
+            font-weight: 700;
+        }
+
+        .md-toc-h2 .md-toc-inner {
+            margin-left: 2em;
+        }
+
+        .md-toc-h3 .md-toc-inner {
+            margin-left: 4em;
+        }
+
+        .md-toc-h4 .md-toc-inner {
+            margin-left: 6em;
+        }
+
+        .md-toc-h5 .md-toc-inner {
+            margin-left: 8em;
+        }
+
+        .md-toc-h6 .md-toc-inner {
+            margin-left: 10em;
+        }
+
+        @media screen and (max-width: 48em) {
+            .md-toc-h3 .md-toc-inner {
+                margin-left: 3.5em;
+            }
+
+            .md-toc-h4 .md-toc-inner {
+                margin-left: 5em;
+            }
+
+            .md-toc-h5 .md-toc-inner {
+                margin-left: 6.5em;
+            }
+
+            .md-toc-h6 .md-toc-inner {
+                margin-left: 8em;
+            }
+        }
+
+        a.md-toc-inner {
+            font-size: inherit;
+            font-style: inherit;
+            font-weight: inherit;
+            line-height: inherit;
+        }
+
+        .footnote-line a:not(.reversefootnote) {
+            color: inherit;
+        }
+
+        .md-attr {
+            display: none;
+        }
+
+        .md-fn-count::after {
+            content: ".";
+        }
+
+        code,
+        pre,
+        samp,
+        tt {
+            font-family: var(--monospace);
+        }
+
+        kbd {
+            margin: 0px 0.1em;
+            padding: 0.1em 0.6em;
+            font-size: 0.8em;
+            color: rgb(36, 39, 41);
+            background: rgb(255, 255, 255);
+            border: 1px solid rgb(173, 179, 185);
+            border-radius: 3px;
+            box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset;
+            white-space: nowrap;
+            vertical-align: middle;
+        }
+
+        .md-comment {
+            color: rgb(162, 127, 3);
+            opacity: 0.6;
+            font-family: var(--monospace);
+        }
+
+        code {
+            text-align: left;
+            vertical-align: initial;
+        }
+
+        a.md-print-anchor {
+            white-space: pre !important;
+            border-width: initial !important;
+            border-style: none !important;
+            border-color: initial !important;
+            display: inline-block !important;
+            position: absolute !important;
+            width: 1px !important;
+            right: 0px !important;
+            outline: 0px !important;
+            background: 0px 0px !important;
+            text-decoration: initial !important;
+            text-shadow: initial !important;
+        }
+
+        .os-windows.monocolor-emoji .md-emoji {
+            font-family: "Segoe UI Symbol", sans-serif;
+        }
+
+        .md-diagram-panel>svg {
+            max-width: 100%;
+        }
+
+        [lang="flow"] svg,
+        [lang="mermaid"] svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        [lang="mermaid"] .node text {
+            font-size: 1rem;
+        }
+
+        table tr th {
+            border-bottom: 0px;
+        }
+
+        video {
+            max-width: 100%;
+            display: block;
+            margin: 0px auto;
+        }
+
+        iframe {
+            max-width: 100%;
+            width: 100%;
+            border: none;
+        }
+
+        .highlight td,
+        .highlight tr {
+            border: 0px;
+        }
+
+        mark {
+            background: rgb(255, 255, 0);
+            color: rgb(0, 0, 0);
+        }
+
+        .md-html-inline .md-plain,
+        .md-html-inline strong,
+        mark .md-inline-math,
+        mark strong {
+            color: inherit;
+        }
+
+        .md-expand mark .md-meta {
+            opacity: 0.3 !important;
+        }
+
+        mark .md-meta {
+            color: rgb(0, 0, 0);
+        }
+
+        @media print {
+
+            .typora-export h1,
+            .typora-export h2,
+            .typora-export h3,
+            .typora-export h4,
+            .typora-export h5,
+            .typora-export h6 {
+                break-inside: avoid;
+            }
+        }
+
+        .md-diagram-panel .messageText {
+            stroke: none !important;
+        }
+
+        .md-diagram-panel .start-state {
+            fill: var(--node-fill);
+        }
+
+        .md-diagram-panel .edgeLabel rect {
+            opacity: 1 !important;
+        }
+
+        .md-fences.md-fences-math {
+            font-size: 1em;
+        }
+
+        .md-fences-advanced:not(.md-focus) {
+            padding: 0px;
+            white-space: nowrap;
+            border: 0px;
+        }
+
+        .md-fences-advanced:not(.md-focus) {
+            background: inherit;
+        }
+
+        .typora-export-show-outline .typora-export-content {
+            max-width: 1440px;
+            margin: auto;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .typora-export-sidebar {
+            width: 300px;
+            font-size: 0.8rem;
+            margin-top: 80px;
+            margin-right: 18px;
+        }
+
+        .typora-export-show-outline #write {
+            --webkit-flex: 2;
+            flex: 2 1 0%;
+        }
+
+        .typora-export-sidebar .outline-content {
+            position: fixed;
+            top: 0px;
+            max-height: 100%;
+            overflow: hidden auto;
+            padding-bottom: 30px;
+            padding-top: 60px;
+            width: 300px;
+        }
+
+        @media screen and (max-width: 1024px) {
+
+            .typora-export-sidebar,
+            .typora-export-sidebar .outline-content {
+                width: 240px;
+            }
+        }
+
+        @media screen and (max-width: 800px) {
+            .typora-export-sidebar {
+                display: none;
+            }
+        }
+
+        .outline-content li,
+        .outline-content ul {
+            margin-left: 0px;
+            margin-right: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+            list-style: none;
+        }
+
+        .outline-content ul {
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .outline-content strong {
+            font-weight: 400;
+        }
+
+        .outline-expander {
+            width: 1rem;
+            height: 1.42857rem;
+            position: relative;
+            display: table-cell;
+            vertical-align: middle;
+            cursor: pointer;
+            padding-left: 4px;
+        }
+
+        .outline-expander::before {
+            content: "";
+            position: relative;
+            font-family: Ionicons;
+            display: inline-block;
+            font-size: 8px;
+            vertical-align: middle;
+        }
+
+        .outline-item {
+            padding-top: 3px;
+            padding-bottom: 3px;
+            cursor: pointer;
+        }
+
+        .outline-expander:hover::before {
+            content: "";
+        }
+
+        .outline-h1>.outline-item {
+            padding-left: 0px;
+        }
+
+        .outline-h2>.outline-item {
+            padding-left: 1em;
+        }
+
+        .outline-h3>.outline-item {
+            padding-left: 2em;
+        }
+
+        .outline-h4>.outline-item {
+            padding-left: 3em;
+        }
+
+        .outline-h5>.outline-item {
+            padding-left: 4em;
+        }
+
+        .outline-h6>.outline-item {
+            padding-left: 5em;
+        }
+
+        .outline-label {
+            cursor: pointer;
+            display: table-cell;
+            vertical-align: middle;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .outline-label:hover {
+            text-decoration: underline;
+        }
+
+        .outline-item:hover {
+            border-color: rgb(245, 245, 245);
+            background-color: var(--item-hover-bg-color);
+        }
+
+        .outline-item:hover {
+            margin-left: -28px;
+            margin-right: -28px;
+            border-left: 28px solid transparent;
+            border-right: 28px solid transparent;
+        }
+
+        .outline-item-single .outline-expander::before,
+        .outline-item-single .outline-expander:hover::before {
+            display: none;
+        }
+
+        .outline-item-open>.outline-item>.outline-expander::before {
+            content: "";
+        }
+
+        .outline-children {
+            display: none;
+        }
+
+        .info-panel-tab-wrapper {
+            display: none;
+        }
+
+        .outline-item-open>.outline-children {
+            display: block;
+        }
+
+        .typora-export .outline-item {
+            padding-top: 1px;
+            padding-bottom: 1px;
+        }
+
+        .typora-export .outline-item:hover {
+            margin-right: -8px;
+            border-right: 8px solid transparent;
+        }
+
+        .typora-export .outline-expander::before {
+            content: "+";
+            font-family: inherit;
+            top: -1px;
+        }
+
+        .typora-export .outline-expander:hover::before,
+        .typora-export .outline-item-open>.outline-item>.outline-expander::before {
+            content: "−";
+        }
+
+        .typora-export-collapse-outline .outline-children {
+            display: none;
+        }
+
+        .typora-export-collapse-outline .outline-item-open>.outline-children,
+        .typora-export-no-collapse-outline .outline-children {
+            display: block;
+        }
+
+        .typora-export-no-collapse-outline .outline-expander::before {
+            content: "" !important;
+        }
+
+        .typora-export-show-outline .outline-item-active>.outline-item .outline-label {
+            font-weight: 700;
+        }
+
+        .md-inline-math-container mjx-container {
+            zoom: 0.95;
+        }
+
+
+        @include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+        /* open-sans-regular - latin-ext_latin */
+
+        /* open-sans-italic - latin-ext_latin */
+
+        /* open-sans-700 - latin-ext_latin */
+
+        /* open-sans-700italic - latin-ext_latin */
+
+        :root {
+            --bg-color: #4b4a4a;
+            --title-color: #34abcf;
+            --text-color: #f7f4f4;
+            --light-text-color: #666666;
+            --lighter-text-color: #695454;
+            --link-color: #2aa899;
+            --code-color: #d3d8da;
+            --shadow-color: #2e2e2e;
+            --border-quote: rgba(116, 95, 181, 0.2);
+            --border-quote-grey: #c8c8c8;
+            --border: #e7e7e7;
+            --link-bottom: #bbb;
+            --shadow: 3px 3px 10px var(--shadow-color);
+            --inline-code-bg: #2c2b2e;
+            --header-weight: normal;
+            --side-bar-bg-color: #0c0c0c;
+            --control-text-color: var(var(--light-text-color));
+            --active-file-text-color: var(--title-color);
+            --active-file-bg-color: var(--shadow-color);
+            --item-hover-bg-color: var(--shadow-color);
+            --active-file-border-color: var(var(--title-color));
+            --base-font: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            --title-font: "EB Garamond", "Source Sans Pro", serif;
+            --monospace: Courier, Monospace !important;
+        }
+
+        blockquote {
+            border-left: 4px solid #42a7b9;
+            padding: 10px 0px 10px 15px;
+            color: #eeeeee;
+        }
+
+        /* 打印 */
+
+        @media print {
+            html {
+                font-size: 0.9rem;
+            }
+
+            table,
+            pre {
+                page-break-inside: avoid;
+            }
+
+            pre {
+                word-wrap: break-word;
+            }
+
+            #write {
+                max-width: 100%;
+            }
+
+            @page {
+                size: A3;
+                /* PDF output size */
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-rendering: optimizelegibility;
+            -webkit-font-smoothing: initial;
+        }
+
+        body {
+            color: var(--text-color);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+            letter-spacing: 0;
+            overflow-x: hidden;
+        }
+
+
+        /* 页边距 和 页面大小 */
+
+        #write {
+            font-family: var(--base-font);
+            /* max-width: 914px; */
+            margin: 0 auto;
+            padding: 1rem 4rem;
+            padding-bottom: 100px;
+            background-color: #2e2c2c;
+        }
+
+        #write p {
+            line-height: 1.6rem;
+            word-spacing: 0.05rem;
+        }
+
+        body>*:first-child {
+            margin-top: 0 !important;
+        }
+
+        body>*:last-child {
+            margin-bottom: 0 !important;
+        }
+
+
+        /* Link 链接 */
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        #write a {
+            border-bottom: 1px solid var(--link-bottom);
+        }
+
+        .md-content {
+            color: var(--light-text-color);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            position: relative;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: var(--header-weight);
+            line-height: 1.3;
+            cursor: text;
+            color: var(--title-color);
+            font-family: var(--title-font);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        h1:after {
+            content: "";
+            display: block;
+            margin: 0.2rem auto 0;
+            width: 6rem;
+            height: 2px;
+            border-bottom: 2px solid var(--title-color);
+        }
+
+        h2 {
+            padding-left: 0.4em;
+            border-left: 0.4em solid var(--title-color);
+            border-bottom: 1px solid var(--title-color);
+        }
+
+        h1 tt,
+        h1 code {
+            font-size: inherit;
+        }
+
+        h2 tt,
+        h2 code {
+            font-size: inherit;
+        }
+
+        h3 tt,
+        h3 code {
+            font-size: inherit;
+        }
+
+        h4 tt,
+        h4 code {
+            font-size: inherit;
+        }
+
+        h5 tt,
+        h5 code {
+            font-size: inherit;
+        }
+
+        h6 tt,
+        h6 code {
+            font-size: inherit;
+        }
+
+        p,
+        blockquote,
+        ul,
+        ol,
+        dl,
+        table {
+            margin: 0.8em 0;
+        }
+
+
+        /* horizontal rule */
+
+        hr {
+            margin: 1.5em auto;
+            border-top: 1px solid var(--border);
+        }
+
+
+        /* 列表 */
+
+        li>ol,
+        li>ul {
+            margin: 0 0;
+        }
+
+        li p.first {
+            display: inline-block;
+        }
+
+        ul,
+        ol {
+            padding-left: 2rem;
+        }
+
+        ul:first-child,
+        ol:first-child {
+            margin-top: 0;
+        }
+
+        ul:last-child,
+        ol:last-child {
+            margin-bottom: 0;
+        }
+
+        #write ol li,
+        ul li {
+            padding-left: 0.1rem;
+        }
+
+
+        /* 引用 */
+
+        blockquote {
+            border-left: 0.3rem solid var(--border-quote);
+            padding-left: 1em;
+            font-family: var(--base-font);
+        }
+
+
+        /* 表格 */
+
+        table {
+            margin-bottom: 1.25rem;
+        }
+
+        table th,
+        table td {
+            padding: 8px;
+            line-height: 1.25rem;
+            vertical-align: middle;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            font-weight: bold;
+        }
+
+        table thead th {
+            vertical-align: middle;
+        }
+
+        table tr:nth-child(2n),
+        thead {
+            background-color: #fcfcfc;
+        }
+
+
+        /* 粗体 */
+
+        #write strong {
+            padding: 0 2px;
+            font-weight: bold;
+        }
+
+
+        /* inline code */
+        code,
+        tt {
+            padding: 2px 4px;
+            border-radius: 0.3rem;
+            font-family: var(--monospace);
+            font-size: 0.9rem;
+            color: var(--code-color);
+            background-color: var(--inline-code-bg);
+            margin: 0 2px;
+            color: seashell;
+        }
+
+        #write .md-footnote {
+            color: var(--code-color);
+            background-color: var(--inline-code-bg);
+        }
+
+
+        /* highlight. */
+
+        #write mark {
+            background: rgb(255, 255, 196);
+            color: var(--text-color);
+        }
+
+        #write del {
+            padding: 1px 2px;
+        }
+
+        .md-task-list-item>input {
+            margin-left: -1.3em;
+        }
+
+        #write pre.md-meta-block {
+            padding: 1rem;
+            font-size: 85%;
+            line-height: 1.45;
+            background-color: #272525;
+            border: 0;
+            border-radius: 3px;
+            color: #979797;
+            margin-top: 0 !important;
+        }
+
+        .mathjax-block>.code-tooltip {
+            bottom: 0.375rem;
+        }
+
+
+        /* 图片 */
+
+        .md-image>.md-meta {
+            border-radius: 3px;
+            font-family: var(--monospace);
+            padding: 2px 0 0 4px;
+            font-size: 0.9em;
+            color: inherit;
+        }
+
+
+        /* 图片靠左显示 */
+
+
+        /* p .md-image:only-child {
   width: auto;
   text-align: left;
   margin-left: 2rem;
 } */
 
 
-/* 写![shadow-...]() 显示图片阴影 */
+        /* 写![shadow-...]() 显示图片阴影 */
 
-img[alt|="shadow"] {
-    box-shadow: var(--shadow);
-}
-
-
-/* TOC */
-
-#write a.md-toc-inner {
-    line-height: 1.6;
-    white-space: pre-line;
-    border-bottom: none;
-    color: var(--light-text-color);
-    font-size: 0.9rem;
-}
-
-.md-toc-h1 .md-toc-inner {
-    margin-left: 0;
-    font-weight: normal;
-}
-
-header,
-.context-menu,
-.megamenu-content,
-footer {
-    font-family: var(--base-font);
-}
-
-.file-node-content:hover .file-node-icon,
-.file-node-content:hover .file-node-open-state {
-    visibility: visible;
-}
-
-.md-lang {
-    color: #b4654d;
-}
-
-.html-for-mac .context-menu {
-    --item-hover-bg-color: #e6f0fe;
-}
+        img[alt|="shadow"] {
+            box-shadow: var(--shadow);
+        }
 
 
-/* Code fences */
+        /* TOC */
+
+        #write a.md-toc-inner {
+            line-height: 1.6;
+            white-space: pre-line;
+            border-bottom: none;
+            color: var(--light-text-color);
+            font-size: 0.9rem;
+        }
+
+        .md-toc-h1 .md-toc-inner {
+            margin-left: 0;
+            font-weight: normal;
+        }
+
+        header,
+        .context-menu,
+        .megamenu-content,
+        footer {
+            font-family: var(--base-font);
+        }
+
+        .file-node-content:hover .file-node-icon,
+        .file-node-content:hover .file-node-open-state {
+            visibility: visible;
+        }
+
+        .md-lang {
+            color: #b4654d;
+        }
+
+        .html-for-mac .context-menu {
+            --item-hover-bg-color: #e6f0fe;
+        }
 
 
-/* border, bg, font */
-
-.md-fences {
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    background: #2e2c2c !important;
-    font-size: 0.9rem;
-}
+        /* Code fences */
 
 
-/* 代码框阴影 */
+        /* border, bg, font */
+
+        .md-fences {
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            background: #2e2c2c !important;
+            font-size: 0.9rem;
+        }
 
 
-/* #write pre.md-fences {
+        /* 代码框阴影 */
+
+
+        /* #write pre.md-fences {
   display: block;
   -webkit-overflow-scrolling: touch;
   box-shadow: var(--shadow);
 } */
 
-.cm-s-inner .cm-variable {
-    color: var(--text-color);
-}
+        .cm-s-inner .cm-variable {
+            color: var(--text-color);
+        }
 
-.cm-s-inner {
-    padding: 0.25rem;
-    border-radius: 0.25rem;
-}
+        .cm-s-inner {
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+        }
 
-.cm-s-inner.CodeMirror,
-.cm-s-inner .CodeMirror-gutters {
-    color: #3a3432 !important;
-    border: none;
-}
+        .cm-s-inner.CodeMirror,
+        .cm-s-inner .CodeMirror-gutters {
+            color: #3a3432 !important;
+            border: none;
+        }
 
-.cm-s-inner .CodeMirror-gutters {
-    color: #6d8a88;
-}
+        .cm-s-inner .CodeMirror-gutters {
+            color: #6d8a88;
+        }
 
-.cm-s-inner .CodeMirror-linenumber {
-    padding: 0 0.1rem 0 0.3rem;
-    color: #b8b5b4;
-}
+        .cm-s-inner .CodeMirror-linenumber {
+            padding: 0 0.1rem 0 0.3rem;
+            color: #b8b5b4;
+        }
 
-.cm-s-inner .CodeMirror-matchingbracket {
-    text-decoration: underline;
-    color: #32b7c0 !important;
-}
+        .cm-s-inner .CodeMirror-matchingbracket {
+            text-decoration: underline;
+            color: #32b7c0 !important;
+        }
 
-#fences-auto-suggest .active {
-    background: #ddd;
-}
+        #fences-auto-suggest .active {
+            background: #ddd;
+        }
 
-.cm-s-inner span.cm-comment {
-    color: #9daab6;
-}
+        .cm-s-inner span.cm-comment {
+            color: #9daab6;
+        }
 
-.cm-s-inner span.cm-builtin {
-    color: #0451a5;
-}
-
-
-/* language tip */
-
-#write .code-tooltip {
-    border: 1px solid var(--border);
-}
-
-.auto-suggest-container {
-    border-color: #b4b4b4;
-}
-
-.auto-suggest-container .autoComplt-hint.active {
-    background: #b4b4b4;
-    color: inherit;
-}
+        .cm-s-inner span.cm-builtin {
+            color: #0451a5;
+        }
 
 
-/* task list */
+        /* language tip */
 
-#write .md-task-list-item>input {
-    -webkit-appearance: initial;
-    display: block;
-    position: absolute;
-    border: 1px solid #b4b4b4;
-    border-radius: 0.2rem;
-    margin-top: 0.3rem;
-    height: 1rem;
-    width: 1rem;
-    transition: background 0.3s;
-}
+        #write .code-tooltip {
+            border: 1px solid var(--border);
+        }
 
-#write .md-task-list-item>input:focus {
-    outline: none;
-    box-shadow: none;
-}
+        .auto-suggest-container {
+            border-color: #b4b4b4;
+        }
 
-#write .md-task-list-item>input:hover {
-    background: #ddd;
-}
-
-#write .md-task-list-item>input[checked]::before {
-    content: "";
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    height: 60%;
-    width: 2px;
-    transform: rotate(40deg);
-    background: #333;
-}
-
-#write .md-task-list-item>input[checked]::after {
-    content: "";
-    position: absolute;
-    top: 46%;
-    left: 25%;
-    height: 30%;
-    width: 2px;
-    transform: rotate(-40deg);
-    background: #333;
-}
-
-#write .md-task-list-item>p {
-    transition: color 0.3s, opacity 0.3s;
-}
-
-#write .md-task-list-item.task-list-done>p {
-    color: #b4b4b4;
-    text-decoration: line-through;
-}
-
-#write .md-task-list-item.task-list-done>p>.md-emoji {
-    opacity: 0.5;
-}
-
-#write .md-task-list-item.task-list-done>p>.md-link>a {
-    opacity: 0.6;
-}
+        .auto-suggest-container .autoComplt-hint.active {
+            background: #b4b4b4;
+            color: inherit;
+        }
 
 
-/* sidebar */
+        /* task list */
 
-#typora-sidebar,
-.typora-node #typora-sidebar {
-    box-shadow: 3px 0px 10px var(--shadow-color);
-}
+        #write .md-task-list-item>input {
+            -webkit-appearance: initial;
+            display: block;
+            position: absolute;
+            border: 1px solid #b4b4b4;
+            border-radius: 0.2rem;
+            margin-top: 0.3rem;
+            height: 1rem;
+            width: 1rem;
+            transition: background 0.3s;
+        }
 
-.sidebar-content-content {
-    font-size: 0.9rem;
-}
+        #write .md-task-list-item>input:focus {
+            outline: none;
+            box-shadow: none;
+        }
 
-/* 选择文字的颜色 */
+        #write .md-task-list-item>input:hover {
+            background: #ddd;
+        }
 
-::selection {
-    background:#464343; 
-    /* color:#acaaaa; */
-}
+        #write .md-task-list-item>input[checked]::before {
+            content: "";
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            height: 60%;
+            width: 2px;
+            transform: rotate(40deg);
+            background: #333;
+        }
 
-/* ::-moz-selection {
+        #write .md-task-list-item>input[checked]::after {
+            content: "";
+            position: absolute;
+            top: 46%;
+            left: 25%;
+            height: 30%;
+            width: 2px;
+            transform: rotate(-40deg);
+            background: #333;
+        }
+
+        #write .md-task-list-item>p {
+            transition: color 0.3s, opacity 0.3s;
+        }
+
+        #write .md-task-list-item.task-list-done>p {
+            color: #b4b4b4;
+            text-decoration: line-through;
+        }
+
+        #write .md-task-list-item.task-list-done>p>.md-emoji {
+            opacity: 0.5;
+        }
+
+        #write .md-task-list-item.task-list-done>p>.md-link>a {
+            opacity: 0.6;
+        }
+
+
+        /* sidebar */
+
+        #typora-sidebar,
+        .typora-node #typora-sidebar {
+            box-shadow: 3px 0px 10px var(--shadow-color);
+        }
+
+        .sidebar-content-content {
+            font-size: 0.9rem;
+        }
+
+        /* 选择文字的颜色 */
+
+        ::selection {
+            background: #464343;
+            /* color:#acaaaa; */
+        }
+
+        /* ::-moz-selection {
     background:#d3d3d3; 
     color:#555;
 }
@@ -766,36 +1606,135 @@ footer {
     background:#d3d3d3; 
     color:#555;
 } */
-@import "";
+        @import "";
 
-:root {
-  --base-font: Consolas , "Ubuntu Mono", "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --title-font: var(--base-font);
-  --monospace: "Ubuntu Mono", Courier, Monospace !important;
-}
+        :root {
+            --base-font: Consolas, "Ubuntu Mono", "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            --title-font: var(--base-font);
+            --monospace: "Ubuntu Mono", Courier, Monospace !important;
+        }
 
-/* Cesno style start */
+        /* Cesno style start */
 
-.cm-s-inner .cm-variable      {color: #f39800;}
+        .cm-s-inner .cm-variable {
+            color: #f39800;
+        }
 
-.cm-s-inner .cm-variable-3    {color: #9ed44c; font-weight: bold;}
+        .cm-s-inner .cm-variable-3 {
+            color: #9ed44c;
+            font-weight: bold;
+        }
 
-.cm-s-inner .cm-number        {color: #52cbe9;}
+        .cm-s-inner .cm-number {
+            color: #52cbe9;
+        }
 
-.cm-s-inner .cm-keyword       {color: #64bcbc; font-weight: bold;}
+        .cm-s-inner .cm-keyword {
+            color: #64bcbc;
+            font-weight: bold;
+        }
 
-.cm-s-inner .cm-def           {color: #0094c8;}
+        .cm-s-inner .cm-def {
+            color: #0094c8;
+        }
 
-.cm-s-inner .cm-operator      {color: #9acaca; font-weight: bold;}
+        .cm-s-inner .cm-operator {
+            color: #9acaca;
+            font-weight: bold;
+        }
 
-/* .cm-s-inner .cm-atom          {color: #c5c56a; font-weight: bold;} */
+        /* .cm-s-inner .cm-atom          {color: #c5c56a; font-weight: bold;} */
 
-/* Cesno style end */
-
-
-</style><title>001</title>
+        /* Cesno style end */
+    </style>
+    <title>001</title>
 </head>
-<body class='typora-export os-windows'><div class='typora-export-content'>
-<div id='write'  class=''><h1 id='幻梦世界'><span>幻梦世界</span></h1><blockquote><p><span>一场属于自己的梦</span></p></blockquote><h2 id='第一章-一切的开始'><span>第一章 一切的开始</span></h2><p><span>2300年，一个新的开始。</span></p><p><span>一个普通的大学宿舍，一个女生侧躺在床上百无聊赖地刷着手机。</span></p><p><span>“啊，好无聊啊，为什么这些年的游戏一点意思都没有呢？全是同质化的RPG冒险类，也不能因为以前的小说这么写就全这么做啊！”，翻着新游戏的推荐榜单，她郁闷不已地说道。</span></p><p><span>无聊的她翻着游戏发展史，试图从弹幕里找到比较冷门但是很有创意的游戏推荐。</span></p><p><span>“2000年，是新世纪的开始，也是PC技术爆炸的时代，这段历史我们可以概括为两个大阶段：从最初的简简单单的几百K，到第一代直连脑电波的虚拟游戏头盔是第一大阶段，这段时间内人们主要以鼠标和键盘为主，大脑的反映虽然很快，但是鼠标键盘的输入速度和手脑的协调成都成了天才们的上限，这段时间内涌现出了不少优秀的游戏，有的甚至更是炒冷饭移植到了如今的虚拟头盔上，也成了当今游戏界一些热门的选择……”</span></p><p><span>这时候弹幕上刷起了不少游戏的名字：“塞尔达天下第一！星际争霸yyds！红警永不为奴！行于黑暗，侍奉光明……”，失望地关掉视频，翻了个身，抬起之前被压着的胳膊晃了晃，“诶，游戏内容又陷入循环了啊。”</span></p><p><span>按了一下关机键，手机黑屏，随手放在了自己的胸口上，看了看自己昨晚因为赌约输了被室友疯狂揉搓的36C，“啊，真是的，不是自己的就下手那么重，好歹轻点嘛，自己又不是没有。”，嘟着嘴，用只有自己能听到的声音小声说道，抬起了拿着手机的右手，用手肘轻轻揉了揉，扭头看了看除了自己已经空无一人的宿舍，“诶，选修课抢到网课真的好舒服啊，早早刷完，也不用大早上就跑到教室上课了，真好。”</span></p><p><span>再次拿起手机，打开了视频网站，无聊地刷了几下，一个视频引起了她的注意。《一款2019年的游戏，我们做了出来》封面是很简单的黑底白字：《主神，无限流世界游戏》</span></p><p><span>“嗯？无限流？倒是可以看看”，这么想着，灵巧的手指快速点了进去，随机视频开始播放……</span></p><p><span>“主神，一款于2019年上线老牌游戏平台TapTap，号称无限流，给出了相当划时代的游戏制作理念（虽然在小说里已经被写烂了），引起了社区的超高关注，但是随后几年，开发商跑路，公司注销，这款可能作为划时代的游戏就这样无限跳票了，我们在12年前无意中发现了这款游戏的制作理念，发现以现有的游戏制作平台制作仍然有着相当的难度，可想而知这个游戏的设想是多么的划时代，随后我们便启动了这一项目，但是由于我们决定秘密开发（想着来波大的），所以我们签了保密协议，并没有对外公布，最终通过我们制作组10年的技术攻关，游戏已经基本成型，现正值2300年始，我们宣布此游戏正式公测！具体游戏玩法请观看P2”</span></p><p><span>“竟然是真的无限流吗？好久没看到有新创意的游戏了诶”，少女的眼里发出了闪光。迫不及待地进入P2，画面还在放着logo，甚至于还没看到视频内容，就有很多弹幕刷屏，无一例外的都是一句话：我看完了，我宣布，这个游戏会是这个年代最好玩、最有创意且最富艺术感的游戏！</span></p><p><span>“真的那么神吗？我倒要看看”，少女嘟着嘴，翻了个身，趴在了床上，把手机横放在了枕头上，手机播放了以下画面：</span></p><p><span>“主神经历了十年开发，适配于现如今市面上几乎所有的主流虚拟头盔，您只需要在其中进入我们的官网，云游戏游玩只需要下载相应的启动客户端，存档可选择存在云端或本地，如存在本地请提前预留出足够的空间；如果您想本地游玩，则需要达到以下配置：头盔处理器最低为…………”</span></p><p><span>“本地游玩要好高的配置啊，这个是10年前的顶配吧？不过还好我这个是今年入学才买的新型号，还高出来三代呢。”，少女喃喃的说道。</span></p><p><span>“游戏玩法如下：</span></p><ol start='' ><li><span>请各位玩家额外注意，本游戏生成的所有NPC不会受玩家词条影响，所有的NPC均为自动生成的性格，请不要将NPC影射成现实人物。</span></li><li><span>请玩家在登录游戏账号后选择自己想要游玩的世界类型、故事主线、主人公（玩家）身份、等一系列世界设定，缺失的部分可以让游戏AI自动生成，此部分内容过多，请玩家观看P3或进入官网详细查看。</span></li><li><span>游戏的游玩内容取决于玩家的脑洞有多大，如果您的脑洞不够大（附赠一个欠揍的表情），可以先游玩我们预设的几种世界，随后在游戏论坛上观看硬核玩家分享的内容。</span></li><li><span>为了缓解本地和云计算的数据处理压力，每名玩家每次仅可生成一个世界，如若想要一次性创建多个世界，请向客服申请，我们会将您之前生成的游戏世界进行审核，如若游戏世界足够优秀则会保留并为玩家开通生成第二个世界的权限。注：哪怕生成了多个世界，每次也仅可运行一个世界。</span></li><li><span>不得在现代背景下生成具有大量宗教/恐怖/暴力/战争等因素的游戏世界，我们会针对每个世界词条和游戏AI运行逻辑进行监管，一经发现，第一次封禁玩家账号7天，第二次则会永久封停，请各位玩家尊重现实。</span></li><li><span>请玩家注意，游戏内的关于科学类的内容均为AI自主推演，物理规则等不可保证在现实中也会生效，请各位玩家不要轻信，分清楚虚拟和现实。</span></li><li><span>本游戏与其他游戏一样拥有体感模拟，但由于游戏世界的不可控，请玩家慎重开启。</span></li><li><span>我们会与医院数据库进行关联，有着心脏病/癫痫等病史的玩家会根据医院提供的过往病例控制相关世界词条和AI算法，我们会尽量保证您的游玩体验和安全。</span></li><li><span>为了保证游戏世界的连贯性和正常运作，新世界的生成会持续12h，请各位玩家耐心等待，另外为了保障游戏世界的正常运作，每次游玩时间最低为3小时，请各位玩家合理安排游玩时间，如若中途退出，玩家会失去对游戏内身体的掌控，AI会如何演化接下来的游戏世界不可控，请各位玩家在中途退出前提前到达游戏内安全的地方。</span></li><li><span>游戏世界可以重置为初始状态，此功能需要在正常游玩3小时之后，但是会因此丢失全部的游戏存档，如若游戏世界环境恶化到无法游玩，请使用此功能。</span></li><li><span>关于联机模式，仅仅在玩家完成自己的世界主线后开放，可邀请其他同样完成世界任务主线的玩家进入自己的世界体验，主线剧情可自己设置，AI会根据难度和世界的匹配程度自行判断是否合适，如若判定合适即可设立，完成方式不限，但是主线任务会由很多细微的要求，会细化到每一个方面，防止玩家玩文字游戏。</span></li><li><span>本游戏可以在睡觉时游玩，介时会进入浅层睡眠状态，但是不推荐玩家以此来代替真正的睡眠，我们无法保证您的游戏世界是否适合睡眠时游玩，如若刺激过大不会进入浅层睡眠状态，请谅解。</span></li><li><span>更多内容正在开发中，敬请期待……”</span></li></ol><p><span>“唔，好像真的很不错诶，先去下下来看看吧。”少女一边想着，一边戴上了头盔，进入官网，点击下载，“这该死的校园网哦，哎，等吧，估计要一个小时了。”瞥了一眼时间，“11点了啊，那看来我得起床去食堂给她们占地方了。”伴随着一声浅浅的呻吟，少女伸了个懒腰后便坐了起来，开始穿戴衣服、洗漱，一切就绪之后看到了挂在衣架上的过膝黑色长筒袜，少女想起了昨晚赌约失败后的室友：“要穿一周长筒袜配裙子哦！”</span></p><p><span>“真是的，请吃饭就算了，为什么还要加这两条。”少女红着脸穿上了两条长筒袜，裙子当然也是过膝的，她可没有让路人欣赏自己绝对领域的习惯。随手打开QQ（大学的通知基本都在全体禁言的QQ群里发，公告和文件都方便管理和查找），在宿舍群里发了一句：老地方，我去占位置了。发送完毕后便出门了。</span></p><p><span>出门刚走了几步，突然想起来什么，折返回宿舍戴上了口罩，“头一次穿这身出门，可不能让那么多人认出来自己。”少女心里想着，随手看了一眼时间，“糟了，11点40了，要快点了。”</span></p><p><span>少女快步走到食堂，来到了宿舍一直长期霸占的一张靠窗的餐桌（来得早没人而已），按了一下桌子上的按钮，用手机扫了扫桌子边缘屏幕上弹出来的实时二维码（防止有人保存图片给别人乱点），点了四份盖饭，然后在微信群发了个群收款，随后便靠在椅子上等着机器人把盖饭端上来了。</span></p><p><span>12点的下课铃准时响起，食堂的人渐渐多了起来，等到四份盖饭全部端上来后，室友们也刚刚好到了，于是一伙人就趁着热乎慢慢吃了起来，顺便聊了聊最近的八卦和趣事，直到……</span></p><p><span>“诶，小猫猫很乖嘛，真的穿了裙子配黑袜哦。”一句话，让全桌的人都看向了我，我略微瞪大了眼睛，看向了坐在我身边的，那全桌唯一的D。</span></p><p><span>“你，你小点声，干嘛在这说啊，这是食堂啊，这么多人……”，我的脸瞬间红了起来，小声说到。</span></p><p><span>“怕什么，穿都穿出来了，就别那么害羞嘛。”，她继续笑着说到，同时还靠了过来，伸手抱住了我另一边的肩膀。</span></p><p><span>“不是，我的意思不是这个，是名字，不对，也不是名字，是，是……”，我有点手足无措，第一次被室友的人在外面叫出来宿舍内部的外号。</span></p><p><span>“好了好了，你就别逗她了，她可不像你脸皮那么厚的”，还好在我对面的老大说话了，要不然我还真不知道怎么收场。</span></p><p><span>哦对了，忘了介绍了，宿舍一共四个人，上床下桌，是现如今大学的标准配置，我叫苗霏，坐在我旁边的这个D叫羽风，坐在我对面的是她的双胞胎姐姐，叫羽陌（来源于紫陌清风），斜对面的那个女生叫欧阳倩。</span></p><p><span>“好了好了，待会回宿舍再闹吧，你们有看到那个叫‘主神’的游戏吗？”欧阳倩笑眯眯地说道。</span></p><p><span>“那个啊，上课的时候刷到了”，羽陌左手托腮，右手拿筷子夹了一块肉放进嘴里，“挺有意思的，但是具体好不好得上游戏才看得到，比较生成世界要12h，最早也得是明天才能玩了。”</span></p><p><span>“哼哼~，网课的优势来了！”我得意地扬起了头，“谁让你们那么懒，早上一个个都起不来，我今天上午就下好了哦”</span></p><p><span>紧接着我就感觉到了我的胸部根部被捏住了，然后我的旁边传来了一阵很小但是无疑透露着不爽的笑声，“呵呵，小猫猫，你是不是有点猖狂了，需要我来纠正一下吗？”，羽风脸色黑了下来，双手开始逐渐地用力。我也一改前面被动的风格，直接抓上了她的胸口，于是我们两个人之间就形成了一种微妙的平衡，直到羽陌的一声提醒，“喂喂喂，你们动作太大了啦。”</span></p><p><span>我们两个人赶紧恢复到各自坐好的姿势，安心吃着饭，仿佛刚刚的一切都咩有发生过的样子。</span></p><p><span>在经历了不知道多久以后，我们四个人也是把饭吃完了，于是各自招呼着回到了宿舍，紧接着就继续了关于“主神的话题”。</span></p><p><span>“你们说，这个游戏会运营多长时间呢？”，欧阳倩提出了疑惑。</span></p><p><span>“应该会很久吧，毕竟线下版的看起来是不需要联网的，所谓的联网模块仅仅是用作以后AI技术的更新罢了。”我回应道。</span></p><p><span>“这些就先不考虑了啦，我们先生成世界吧，下午有必修课，明天周五没课，紧接着就是周末放假，我们如果从晚上就开始玩，那完全可以玩两天呢。”羽陌补充道。</span></p><p><span>“诶？你们不用先下载的吗？”我提出了我的疑问。</span></p><p><span>“小猫猫好笨啊，你都忘了我们可以拿手机控制头盔的吗？”羽风一脸无语地看着我。</span></p><p><span>“唔……忘了。”我一脸尴尬地回答道。</span></p><p><span>“好了好了。你们两个，等到晚上回来再斗嘴也不迟，还不知道这个生成世界的步骤要多长时间呢，你们赶紧进游戏选一选吧，毕竟下午还有课呢，万一时间不够了那可就不好玩了。”欧阳倩的一席话顿时点醒了正在进行日常吵嘴的我们，于是乎我们两个赶紧爬上了自己的床，戴上了自己的头盔进入游戏。</span></p><p><span>“唉，真是一对冤家。”隐隐约约地听到了羽陌略带无奈的吐槽，但是此时我已经没空去反驳了，因为我已经进入了游戏中。</span></p><p>&nbsp;</p></div></div>
+
+<body class='typora-export os-windows'>
+    <div class='typora-export-content'>
+        <div id='write' class=''>
+            <h1 id='幻梦世界'><span>幻梦世界</span></h1>
+            <blockquote>
+                <p><span>一场属于自己的梦</span></p>
+            </blockquote>
+            <h2 id='第一章-一切的开始'><span>第一章 一切的开始</span></h2>
+            <p><span>2300年，一个新的开始。</span></p>
+            <p><span>一个普通的大学宿舍，一个女生侧躺在床上百无聊赖地刷着手机。</span></p>
+            <p><span>“啊，好无聊啊，为什么这些年的游戏一点意思都没有呢？全是同质化的RPG冒险类，也不能因为以前的小说这么写就全这么做啊！”，翻着新游戏的推荐榜单，她郁闷不已地说道。</span></p>
+            <p><span>无聊的她翻着游戏发展史，试图从弹幕里找到比较冷门但是很有创意的游戏推荐。</span></p>
+            <p><span>“2000年，是新世纪的开始，也是PC技术爆炸的时代，这段历史我们可以概括为两个大阶段：从最初的简简单单的几百K，到第一代直连脑电波的虚拟游戏头盔是第一大阶段，这段时间内人们主要以鼠标和键盘为主，大脑的反映虽然很快，但是鼠标键盘的输入速度和手脑的协调成都成了天才们的上限，这段时间内涌现出了不少优秀的游戏，有的甚至更是炒冷饭移植到了如今的虚拟头盔上，也成了当今游戏界一些热门的选择……”</span>
+            </p>
+            <p><span>这时候弹幕上刷起了不少游戏的名字：“塞尔达天下第一！星际争霸yyds！红警永不为奴！行于黑暗，侍奉光明……”，失望地关掉视频，翻了个身，抬起之前被压着的胳膊晃了晃，“诶，游戏内容又陷入循环了啊。”</span>
+            </p>
+            <p><span>按了一下关机键，手机黑屏，随手放在了自己的胸口上，看了看自己昨晚因为赌约输了被室友疯狂揉搓的36C，“啊，真是的，不是自己的就下手那么重，好歹轻点嘛，自己又不是没有。”，嘟着嘴，用只有自己能听到的声音小声说道，抬起了拿着手机的右手，用手肘轻轻揉了揉，扭头看了看除了自己已经空无一人的宿舍，“诶，选修课抢到网课真的好舒服啊，早早刷完，也不用大早上就跑到教室上课了，真好。”</span>
+            </p>
+            <p><span>再次拿起手机，打开了视频网站，无聊地刷了几下，一个视频引起了她的注意。《一款2019年的游戏，我们做了出来》封面是很简单的黑底白字：《主神，无限流世界游戏》</span></p>
+            <p><span>“嗯？无限流？倒是可以看看”，这么想着，灵巧的手指快速点了进去，随机视频开始播放……</span></p>
+            <p><span>“主神，一款于2019年上线老牌游戏平台TapTap，号称无限流，给出了相当划时代的游戏制作理念（虽然在小说里已经被写烂了），引起了社区的超高关注，但是随后几年，开发商跑路，公司注销，这款可能作为划时代的游戏就这样无限跳票了，我们在12年前无意中发现了这款游戏的制作理念，发现以现有的游戏制作平台制作仍然有着相当的难度，可想而知这个游戏的设想是多么的划时代，随后我们便启动了这一项目，但是由于我们决定秘密开发（想着来波大的），所以我们签了保密协议，并没有对外公布，最终通过我们制作组10年的技术攻关，游戏已经基本成型，现正值2300年始，我们宣布此游戏正式公测！具体游戏玩法请观看P2”</span>
+            </p>
+            <p><span>“竟然是真的无限流吗？好久没看到有新创意的游戏了诶”，少女的眼里发出了闪光。迫不及待地进入P2，画面还在放着logo，甚至于还没看到视频内容，就有很多弹幕刷屏，无一例外的都是一句话：我看完了，我宣布，这个游戏会是这个年代最好玩、最有创意且最富艺术感的游戏！</span>
+            </p>
+            <p><span>“真的那么神吗？我倒要看看”，少女嘟着嘴，翻了个身，趴在了床上，把手机横放在了枕头上，手机播放了以下画面：</span></p>
+            <p><span>“主神经历了十年开发，适配于现如今市面上几乎所有的主流虚拟头盔，您只需要在其中进入我们的官网，云游戏游玩只需要下载相应的启动客户端，存档可选择存在云端或本地，如存在本地请提前预留出足够的空间；如果您想本地游玩，则需要达到以下配置：头盔处理器最低为…………”</span>
+            </p>
+            <p><span>“本地游玩要好高的配置啊，这个是10年前的顶配吧？不过还好我这个是今年入学才买的新型号，还高出来三代呢。”，少女喃喃的说道。</span></p>
+            <p><span>“游戏玩法如下：</span></p>
+            <ol start=''>
+                <li><span>请各位玩家额外注意，本游戏生成的所有NPC不会受玩家词条影响，所有的NPC均为自动生成的性格，请不要将NPC影射成现实人物。</span></li>
+                <li><span>请玩家在登录游戏账号后选择自己想要游玩的世界类型、故事主线、主人公（玩家）身份、等一系列世界设定，缺失的部分可以让游戏AI自动生成，此部分内容过多，请玩家观看P3或进入官网详细查看。</span>
+                </li>
+                <li><span>游戏的游玩内容取决于玩家的脑洞有多大，如果您的脑洞不够大（附赠一个欠揍的表情），可以先游玩我们预设的几种世界，随后在游戏论坛上观看硬核玩家分享的内容。</span></li>
+                <li><span>为了缓解本地和云计算的数据处理压力，每名玩家每次仅可生成一个世界，如若想要一次性创建多个世界，请向客服申请，我们会将您之前生成的游戏世界进行审核，如若游戏世界足够优秀则会保留并为玩家开通生成第二个世界的权限。注：哪怕生成了多个世界，每次也仅可运行一个世界。</span>
+                </li>
+                <li><span>不得在现代背景下生成具有大量宗教/恐怖/暴力/战争等因素的游戏世界，我们会针对每个世界词条和游戏AI运行逻辑进行监管，一经发现，第一次封禁玩家账号7天，第二次则会永久封停，请各位玩家尊重现实。</span>
+                </li>
+                <li><span>请玩家注意，游戏内的关于科学类的内容均为AI自主推演，物理规则等不可保证在现实中也会生效，请各位玩家不要轻信，分清楚虚拟和现实。</span></li>
+                <li><span>本游戏与其他游戏一样拥有体感模拟，但由于游戏世界的不可控，请玩家慎重开启。</span></li>
+                <li><span>我们会与医院数据库进行关联，有着心脏病/癫痫等病史的玩家会根据医院提供的过往病例控制相关世界词条和AI算法，我们会尽量保证您的游玩体验和安全。</span></li>
+                <li><span>为了保证游戏世界的连贯性和正常运作，新世界的生成会持续12h，请各位玩家耐心等待，另外为了保障游戏世界的正常运作，每次游玩时间最低为3小时，请各位玩家合理安排游玩时间，如若中途退出，玩家会失去对游戏内身体的掌控，AI会如何演化接下来的游戏世界不可控，请各位玩家在中途退出前提前到达游戏内安全的地方。</span>
+                </li>
+                <li><span>游戏世界可以重置为初始状态，此功能需要在正常游玩3小时之后，但是会因此丢失全部的游戏存档，如若游戏世界环境恶化到无法游玩，请使用此功能。</span></li>
+                <li><span>关于联机模式，仅仅在玩家完成自己的世界主线后开放，可邀请其他同样完成世界任务主线的玩家进入自己的世界体验，主线剧情可自己设置，AI会根据难度和世界的匹配程度自行判断是否合适，如若判定合适即可设立，完成方式不限，但是主线任务会由很多细微的要求，会细化到每一个方面，防止玩家玩文字游戏。</span>
+                </li>
+                <li><span>本游戏可以在睡觉时游玩，介时会进入浅层睡眠状态，但是不推荐玩家以此来代替真正的睡眠，我们无法保证您的游戏世界是否适合睡眠时游玩，如若刺激过大不会进入浅层睡眠状态，请谅解。</span>
+                </li>
+                <li><span>更多内容正在开发中，敬请期待……”</span></li>
+            </ol>
+            <p><span>“唔，好像真的很不错诶，先去下下来看看吧。”少女一边想着，一边戴上了头盔，进入官网，点击下载，“这该死的校园网哦，哎，等吧，估计要一个小时了。”瞥了一眼时间，“11点了啊，那看来我得起床去食堂给她们占地方了。”伴随着一声浅浅的呻吟，少女伸了个懒腰后便坐了起来，开始穿戴衣服、洗漱，一切就绪之后看到了挂在衣架上的过膝黑色长筒袜，少女想起了昨晚赌约失败后的室友：“要穿一周长筒袜配裙子哦！”</span>
+            </p>
+            <p><span>“真是的，请吃饭就算了，为什么还要加这两条。”少女红着脸穿上了两条长筒袜，裙子当然也是过膝的，她可没有让路人欣赏自己绝对领域的习惯。随手打开QQ（大学的通知基本都在全体禁言的QQ群里发，公告和文件都方便管理和查找），在宿舍群里发了一句：老地方，我去占位置了。发送完毕后便出门了。</span>
+            </p>
+            <p><span>出门刚走了几步，突然想起来什么，折返回宿舍戴上了口罩，“头一次穿这身出门，可不能让那么多人认出来自己。”少女心里想着，随手看了一眼时间，“糟了，11点40了，要快点了。”</span></p>
+            <p><span>少女快步走到食堂，来到了宿舍一直长期霸占的一张靠窗的餐桌（来得早没人而已），按了一下桌子上的按钮，用手机扫了扫桌子边缘屏幕上弹出来的实时二维码（防止有人保存图片给别人乱点），点了四份盖饭，然后在微信群发了个群收款，随后便靠在椅子上等着机器人把盖饭端上来了。</span>
+            </p>
+            <p><span>12点的下课铃准时响起，食堂的人渐渐多了起来，等到四份盖饭全部端上来后，室友们也刚刚好到了，于是一伙人就趁着热乎慢慢吃了起来，顺便聊了聊最近的八卦和趣事，直到……</span></p>
+            <p><span>“诶，小猫猫很乖嘛，真的穿了裙子配黑袜哦。”一句话，让全桌的人都看向了我，我略微瞪大了眼睛，看向了坐在我身边的，那全桌唯一的D。</span></p>
+            <p><span>“你，你小点声，干嘛在这说啊，这是食堂啊，这么多人……”，我的脸瞬间红了起来，小声说到。</span></p>
+            <p><span>“怕什么，穿都穿出来了，就别那么害羞嘛。”，她继续笑着说到，同时还靠了过来，伸手抱住了我另一边的肩膀。</span></p>
+            <p><span>“不是，我的意思不是这个，是名字，不对，也不是名字，是，是……”，我有点手足无措，第一次被室友的人在外面叫出来宿舍内部的外号。</span></p>
+            <p><span>“好了好了，你就别逗她了，她可不像你脸皮那么厚的”，还好在我对面的老大说话了，要不然我还真不知道怎么收场。</span></p>
+            <p><span>哦对了，忘了介绍了，宿舍一共四个人，上床下桌，是现如今大学的标准配置，我叫苗霏，坐在我旁边的这个D叫羽风，坐在我对面的是她的双胞胎姐姐，叫羽陌（来源于紫陌清风），斜对面的那个女生叫欧阳倩。</span>
+            </p>
+            <p><span>“好了好了，待会回宿舍再闹吧，你们有看到那个叫‘主神’的游戏吗？”欧阳倩笑眯眯地说道。</span></p>
+            <p><span>“那个啊，上课的时候刷到了”，羽陌左手托腮，右手拿筷子夹了一块肉放进嘴里，“挺有意思的，但是具体好不好得上游戏才看得到，比较生成世界要12h，最早也得是明天才能玩了。”</span></p>
+            <p><span>“哼哼~，网课的优势来了！”我得意地扬起了头，“谁让你们那么懒，早上一个个都起不来，我今天上午就下好了哦”</span></p>
+            <p><span>紧接着我就感觉到了我的胸部根部被捏住了，然后我的旁边传来了一阵很小但是无疑透露着不爽的笑声，“呵呵，小猫猫，你是不是有点猖狂了，需要我来纠正一下吗？”，羽风脸色黑了下来，双手开始逐渐地用力。我也一改前面被动的风格，直接抓上了她的胸口，于是我们两个人之间就形成了一种微妙的平衡，直到羽陌的一声提醒，“喂喂喂，你们动作太大了啦。”</span>
+            </p>
+            <p><span>我们两个人赶紧恢复到各自坐好的姿势，安心吃着饭，仿佛刚刚的一切都咩有发生过的样子。</span></p>
+            <p><span>在经历了不知道多久以后，我们四个人也是把饭吃完了，于是各自招呼着回到了宿舍，紧接着就继续了关于“主神的话题”。</span></p>
+            <p><span>“你们说，这个游戏会运营多长时间呢？”，欧阳倩提出了疑惑。</span></p>
+            <p><span>“应该会很久吧，毕竟线下版的看起来是不需要联网的，所谓的联网模块仅仅是用作以后AI技术的更新罢了。”我回应道。</span></p>
+            <p><span>“这些就先不考虑了啦，我们先生成世界吧，下午有必修课，明天周五没课，紧接着就是周末放假，我们如果从晚上就开始玩，那完全可以玩两天呢。”羽陌补充道。</span></p>
+            <p><span>“诶？你们不用先下载的吗？”我提出了我的疑问。</span></p>
+            <p><span>“小猫猫好笨啊，你都忘了我们可以拿手机控制头盔的吗？”羽风一脸无语地看着我。</span></p>
+            <p><span>“唔……忘了。”我一脸尴尬地回答道。</span></p>
+            <p><span>“好了好了。你们两个，等到晚上回来再斗嘴也不迟，还不知道这个生成世界的步骤要多长时间呢，你们赶紧进游戏选一选吧，毕竟下午还有课呢，万一时间不够了那可就不好玩了。”欧阳倩的一席话顿时点醒了正在进行日常吵嘴的我们，于是乎我们两个赶紧爬上了自己的床，戴上了自己的头盔进入游戏。</span>
+            </p>
+            <p><span>“唉，真是一对冤家。”隐隐约约地听到了羽陌略带无奈的吐槽，但是此时我已经没空去反驳了，因为我已经进入了游戏中。</span></p>
+            <p>&nbsp;</p>
+        </div>
+        <li> <button><a href="https://idck.github.io/book/002">下一章</a></button> </li>
+    </div>
 </body>
+
 </html>
