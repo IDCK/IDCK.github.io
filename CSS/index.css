@@ -9,7 +9,7 @@ body{
 .middle{
     position: absolute;
     top: 0%;
-    left: 30%;
+    left: 25%;
     transform: translate(-50%, -50);
 }
 .middle h1{
